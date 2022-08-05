@@ -1,14 +1,32 @@
 <script>
-  import ContactCard from './ContactCard.svelte';
+  import ContactCard from "./ContactCard.svelte";
 
-  let name = 'Max';
-  let title = '';
-  let image = '';
-  let description = '';
-  let done = false;
+  let name = "Max";
+  let title = "";
+  let image = "";
+  let description = "";
+  let formState = "empty";
+
+  let createdContact;
 
   function addContact() {
-    done = true;
+    if (
+      name.trim().length == 0 ||
+      title.trim().length == 0 ||
+      image.trim().length == 0 ||
+      description.trim().length == 0
+    ) {
+      formState = "invalid";
+    }
+    formState = "done";
+    //console.log(image);
+    createdContact = {
+      name: name,
+      jobTitle: title,
+      imageUrl: image,
+      description: description,
+    };
+    console.log(JSON.stringify(createdContact));
   }
 </script>
 
@@ -31,15 +49,17 @@
   </div>
   <button on:click={addContact}>Add Contact</button>
 </div>
-{#if done}
+{#if formState === "done"}
   <ContactCard
-    userName={name}
-    jobTitle={title}
-    {description}
-    userImage={image}
+    userName={createdContact.name}
+    jobTitle={createdContact.jobTitle}
+    userImage={createdContact.imageUrl}
+    description={createdContact.description}
   />
+{:else if formState == "invalid"}
+  <p>Invalid inputs</p>
 {:else}
-  <span>Nothing happens</span>
+  <p>Please enter some data and hit the button!</p>
 {/if}
 
 <style>
