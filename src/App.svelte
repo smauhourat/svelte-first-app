@@ -24,6 +24,7 @@
     createdContacts = [
       ...createdContacts,
       {
+        id: Math.random(),
         name: name,
         jobTitle: title,
         imageUrl: image,
@@ -31,6 +32,15 @@
       },
     ];
   }
+
+  function delFirstContact() {
+    createdContacts = createdContacts.slice(1);
+  }
+
+  const delContact = (id) => {
+    //console.log(`delete ${id}`);
+    createdContacts = createdContacts.filter((c) => c.id != id);
+  };
 </script>
 
 <div id="form">
@@ -51,6 +61,7 @@
     <textarea rows="3" bind:value={description} id="desc" />
   </div>
   <button on:click={addContact}>Add Contact</button>
+  <button on:click={delFirstContact}>Delete First</button>
 </div>
 
 {#if formState == "invalid"}
@@ -59,14 +70,15 @@
   <p>Please enter some data and hit the button!</p>
 {/if}
 
-{#each createdContacts as contact, index}
-  <h2># {index}</h2>
+{#each createdContacts as contact, index (contact.id)}
+  <h2># {contact.id}</h2>
   <ContactCard
     userName={contact.name}
     jobTitle={contact.jobTitle}
     userImage={contact.imageUrl}
     description={contact.description}
   />
+  <button on:click={delContact(contact.id)}>Delete</button>
 {:else}
   <p>Please start adding some contacts</p>
 {/each}

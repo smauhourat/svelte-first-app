@@ -8,7 +8,7 @@
 <div class="contact-card">
   <header>
     <div class="thumb" class:thumb-placeholder={!userImage}>
-      <img src={userImage} alt={userName} />
+      <img src="" alt={userName} />
     </div>
     <div class="user-data">
       <h1>{userName}</h1>
@@ -61,7 +61,7 @@
 
   h1 {
     font-size: 1.25rem;
-    font-family: 'Roboto Slab', sans-serif;
+    font-family: "Roboto Slab", sans-serif;
     margin: 0.5rem 0;
   }
 
