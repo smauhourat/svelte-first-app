@@ -70,7 +70,7 @@
   <p>Please enter some data and hit the button!</p>
 {/if}
 
-{#each createdContacts as contact, index (contact.id)}
+{#each createdContacts as contact}
   <h2># {contact.id}</h2>
   <ContactCard
     userName={contact.name}
