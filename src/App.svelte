@@ -1,49 +1,50 @@
 <script>
-  import ContacCard from './ContacCard.svelte';
+  import ContactCard from './ContactCard.svelte';
 
-  let name = '';
-  let jobTitle = '';
+  let name = 'Max';
+  let title = '';
   let image = '';
   let description = '';
-  let userImage = '';
-  let age = 30;
+  let done = false;
 
-  $: uppercaseName = name.toUpperCase();
-
-  $: console.log(name);
-
-  $: if (name === 'Santiago') {
-    console.log('Its run!');
-    age = 20;
-  }
-
-  function changeName() {
-    name = 'Santiago';
-  }
-
-  function incrementAge() {
-    age += 1;
-  }
-
-  function handleInput(event) {
-    name = event.target.value;
+  function addContact() {
+    done = true;
   }
 </script>
 
-<h1>Hello {uppercaseName}, my age is {age}!</h1>
-<!-- <input type="text" value={name} on:input={handleInput} /> -->
-<input type="text" bind:value={name} placeholder="User Name..." />
-<input type="text" bind:value={jobTitle} placeholder="Job Title..." />
-<input type="text" bind:value={userImage} placeholder="User Image..." />
-<textarea rows="3" bind:value={description} />
-
-<button on:click={incrementAge}>Change Age</button>
-<!-- <button on:click={changeName}>Change Name</button> -->
-
-<ContacCard userName={uppercaseName} {jobTitle} {description} {userImage} />
+<div id="form">
+  <div class="form-control">
+    <label for="userName">User Name</label>
+    <input type="text" bind:value={name} id="userName" />
+  </div>
+  <div class="form-control">
+    <label for="jobTitle">Job Title</label>
+    <input type="text" bind:value={title} id="jobTitle" />
+  </div>
+  <div class="form-control">
+    <label for="image">Image URL</label>
+    <input type="text" bind:value={image} id="image" />
+  </div>
+  <div class="form-control">
+    <label for="desc">Description</label>
+    <textarea rows="3" bind:value={description} id="desc" />
+  </div>
+  <button on:click={addContact}>Add Contact</button>
+</div>
+{#if done}
+  <ContactCard
+    userName={name}
+    jobTitle={title}
+    {description}
+    userImage={image}
+  />
+{:else}
+  <span>Nothing happens</span>
+{/if}
 
 <style>
-  h1 {
-    color: purple;
+  #form {
+    width: 30rem;
+    max-width: 100%;
   }
 </style>
