@@ -1,13 +1,13 @@
 <script>
   import ContactCard from "./ContactCard.svelte";
 
-  let name = "Max";
+  let name = "";
   let title = "";
   let image = "";
   let description = "";
   let formState = "empty";
 
-  let createdContact;
+  let createdContacts = [];
 
   function addContact() {
     if (
@@ -17,16 +17,19 @@
       description.trim().length == 0
     ) {
       formState = "invalid";
+      return;
     }
     formState = "done";
-    //console.log(image);
-    createdContact = {
-      name: name,
-      jobTitle: title,
-      imageUrl: image,
-      description: description,
-    };
-    console.log(JSON.stringify(createdContact));
+
+    createdContacts = [
+      ...createdContacts,
+      {
+        name: name,
+        jobTitle: title,
+        imageUrl: image,
+        description: description,
+      },
+    ];
   }
 </script>
 
@@ -49,18 +52,24 @@
   </div>
   <button on:click={addContact}>Add Contact</button>
 </div>
-{#if formState === "done"}
-  <ContactCard
-    userName={createdContact.name}
-    jobTitle={createdContact.jobTitle}
-    userImage={createdContact.imageUrl}
-    description={createdContact.description}
-  />
-{:else if formState == "invalid"}
+
+{#if formState == "invalid"}
   <p>Invalid inputs</p>
-{:else}
+{:else if formState != "empty"}
   <p>Please enter some data and hit the button!</p>
 {/if}
+
+{#each createdContacts as contact, index}
+  <h2># {index}</h2>
+  <ContactCard
+    userName={contact.name}
+    jobTitle={contact.jobTitle}
+    userImage={contact.imageUrl}
+    description={contact.description}
+  />
+{:else}
+  <p>Please start adding some contacts</p>
+{/each}
 
 <style>
   #form {
