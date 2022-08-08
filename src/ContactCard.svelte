@@ -1,23 +1,40 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   export let userName;
   export let jobTitle;
   export let description;
   export let userImage;
+
+  const dispatch = createEventDispatcher();
+
+  const deleteInterno = () => {
+    dispatch("delete-interno", { arg: "esto es el mensaje" });
+  };
+
+  function deleteConParametros(param) {
+    dispatch("delete-interno", { arg: param });
+  }
 </script>
 
-<div class="contact-card">
-  <header>
-    <div class="thumb" class:thumb-placeholder={!userImage}>
-      <img src="" alt={userName} />
+<div>
+  <div class="contact-card">
+    <header>
+      <div class="thumb" class:thumb-placeholder={!userImage}>
+        <img src="" alt={userName} />
+      </div>
+      <div class="user-data">
+        <h1>{userName}</h1>
+        <h2>{jobTitle}</h2>
+      </div>
+    </header>
+    <div class="description">
+      <p>{description}</p>
     </div>
-    <div class="user-data">
-      <h1>{userName}</h1>
-      <h2>{jobTitle}</h2>
-    </div>
-  </header>
-  <div class="description">
-    <p>{description}</p>
   </div>
+  <button on:click={deleteInterno}>DeleteInterno</button>
+  <button on:click={() => deleteConParametros("este es el param")}
+    >Delete con Param Interno</button
+  >
 </div>
 
 <style>

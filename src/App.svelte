@@ -77,6 +77,7 @@
     jobTitle={contact.jobTitle}
     userImage={contact.imageUrl}
     description={contact.description}
+    on:delete-interno={(event) => alert(event.detail.arg)}
   />
   <button on:click={delContact(contact.id)}>Delete</button>
 {:else}
