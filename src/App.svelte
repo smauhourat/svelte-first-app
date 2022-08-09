@@ -41,6 +41,10 @@
     //console.log(`delete ${id}`);
     createdContacts = createdContacts.filter((c) => c.id != id);
   };
+
+  function deleteInterno(event) {
+    console.log(event);
+  }
 </script>
 
 <div id="form">
@@ -77,8 +81,9 @@
     jobTitle={contact.jobTitle}
     userImage={contact.imageUrl}
     description={contact.description}
-    on:delete-interno={(event) => alert(event.detail.arg)}
+    on:delete-interno={deleteInterno}
   />
+  <!-- on:delete-interno={(event) => alert(event.detail.arg)} -->
   <button on:click={delContact(contact.id)}>Delete</button>
 {:else}
   <p>Please start adding some contacts</p>

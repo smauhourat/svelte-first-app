@@ -32,9 +32,9 @@
     </div>
   </div>
   <button on:click={deleteInterno}>DeleteInterno</button>
-  <button on:click={() => deleteConParametros("este es el param")}
-    >Delete con Param Interno</button
-  >
+  <!-- <button on:click={() => deleteConParametros("este es el param")}
+    >Delete con Param Interno</button 
+  >-->
 </div>
 
 <style>
